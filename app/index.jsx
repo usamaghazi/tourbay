@@ -1,11 +1,6 @@
-import { Text } from 'react-native'
-import { Container } from '../Styles/RootPage'
+import MainScreen from '../root/Screens/MainScreen'
 const RootPage = () => {
-  return (
-    <Container>
-      <Text>RootPage</Text>
-    </Container>
-  )
+  return <MainScreen/>
 }
 
 export default RootPage
