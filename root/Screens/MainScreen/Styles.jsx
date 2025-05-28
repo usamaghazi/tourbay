@@ -7,3 +7,9 @@ export const Container = styled.View({
     paddingRight:15,
     backgroundColor:Colors.background
 })
+
+export const CardWrapper = styled.View({
+    flex:1,
+    alignItems:'center',
+    marginTop:10
+})
