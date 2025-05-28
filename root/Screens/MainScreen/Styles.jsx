@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
-
+import Colors from '../../../constants/Colors';
 export const Container = styled.View({
     flex:1,
-    justifyContent:'center',
-    alignItems:'center'
+    paddingTop:40,
+    paddingLeft:15,
+    paddingRight:15,
+    backgroundColor:Colors.background
 })

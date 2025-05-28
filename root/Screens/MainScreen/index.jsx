@@ -1,9 +1,15 @@
-import { Text } from 'react-native'
+
+import { useState } from 'react'
+import Input from '../../../components/Input'
 import { Container } from './Styles'
 const MainScreen = () => {
+  const [nameEmail, setNameEmail] = useState('')
   return (
     <Container>
-          <Text>Main</Text>
+          <Input
+          placeholder='Search by name or email'
+          onChangeText={text => setNameEmail(text) }
+          value={nameEmail}/>
     </Container>
   )
 }
