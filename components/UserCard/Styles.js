@@ -3,8 +3,8 @@ import styled from 'styled-components/native';
 import Colors from '../../constants/Colors';
 
 export const Card = styled.View({
-    height:'57%',
-    width:'90%',
+    height:350,
+    width:280,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: "0.1px",
@@ -14,8 +14,8 @@ export const Card = styled.View({
     paddingTop: 25,
     paddingBottom:20,
     margin: 5,
+    marginTop:10,
     borderRadius:5,
-    // alignItems:'center',
 })
 
 export const ImageWrapper = styled.View({
@@ -23,6 +23,13 @@ export const ImageWrapper = styled.View({
     width:'33%',
     borderRadius:50,
     backgroundColor:Colors.inputBorder,
+    alignSelf:'center'
+})
+
+export const Thumbnail = styled.Image({
+    height:90,
+    width: 90,
+    borderRadius:50,
     alignSelf:'center'
 })
 

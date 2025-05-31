@@ -1,17 +1,28 @@
 
 import { View } from 'react-native'
-import Colors from '../../constants/Colors'
-import { Card, Icon, ImageWrapper, UserInfoText, UserInfoWrapper, UserName } from './Styles'
 
-const UserCard = () => {
+import Colors from '../../constants/Colors'
+import {
+  Card,
+  Icon,
+  Thumbnail,
+  UserInfoText,
+  UserInfoWrapper,
+  UserName
+} from './Styles'
+
+
+const UserCard = ({ item, index }) => {
 
   const iconName = ['person-outline','mail-outline','call-outline','location-outline','globe-outline']
 
   return (
     <Card>
-        <ImageWrapper/>
+          <Thumbnail
+          source={{uri:item.picture.large}}
+          resizeMode="cover"/>
         <UserName>
-          goldencat511
+          {item.login.username}
         </UserName>
         <UserInfoWrapper>
             <View>
@@ -25,19 +36,19 @@ const UserCard = () => {
           </View>
           <View>
             <UserInfoText>
-              Evenly Geri
+              {item.name.first} {item.name.last}
             </UserInfoText>
             <UserInfoText>
-              evenly.wang@gmail.com
+              {item.email}
             </UserInfoText>
             <UserInfoText>
-               (186)-188-3421
+               {item.phone}
             </UserInfoText>
             <UserInfoText>
-              Upper Hutt
+              {item.location.city}
             </UserInfoText>
             <UserInfoText>
-              New Zealand
+              {item.location.country}
             </UserInfoText>
           </View>
         </UserInfoWrapper>
