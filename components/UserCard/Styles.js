@@ -56,6 +56,6 @@ export const UserInfoText = styled.Text({
     fontSize:15,
     color:Colors.textInfo,
     fontWeight:'bold',
-    marginBottom:8,
+    marginBottom:8.5,
     marginLeft:7
 })

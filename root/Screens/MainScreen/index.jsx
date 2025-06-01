@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList } from 'react-native'
+import { useRef, useState } from 'react'
+import { ActivityIndicator, FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import Input from '../../../components/Input'
 import UserCard from '../../../components/UserCard'
 import Colors from '../../../constants/Colors'
+import useFetchUsers from '../../../hooks/useFetchUsers'
 import {
   CardWrapper,
   Container,
@@ -15,60 +17,26 @@ import {
 } from './Styles'
 const MainScreen = () => {
 
-  const [nameEmail, setNameEmail] = useState('')
-  const [allUsers, setAllUsers] = useState([]) // Store ALL 50 users
-  const [displayedUsers, setDisplayedUsers] = useState([]) // Store 10 Users
-  const [loading, setLoading] = useState(false)
-  const [loadingMore, setLoadingMore] = useState(false)
-  const [error, setError] = useState(null)
+   const [showCursor, setShowCursor] = useState(false)
+  const inputRef = useRef(null)
 
-  const USERS_PER_BATCH = 10 // Show 10 users at a time
+  const { displayedUsers, 
+          loading,
+          loadingMore,
+          nameEmail,
+          handleSetNameEmail, 
+          loadMoreUsers } = useFetchUsers();
 
-  useEffect(()=>{
+  const handleContainerPress = () => {
+    if (inputRef.current) {
+      inputRef.current.blur()
+    }
+    Keyboard.dismiss()
+    setShowCursor(false)
+  }
 
-    const handleFetchUsers = async () => {
-        setLoading(true)
-      try {
-
-          const responce = await fetch('https://randomuser.me/api/?results=50&page=1')
-
-          if(!responce.ok){
-            throw new Error('Something Went Wrong')
-          }
-
-          const userData = await responce.json()
-          setAllUsers(userData.results)
-          setDisplayedUsers(userData.results.slice(0, USERS_PER_BATCH))
-
-      } catch (error) {
-          console.error(error.message)
-          setError(error.message)
-      } finally{
-        setLoading(false)
-      }
-    }    
-
-    handleFetchUsers()
-  },[])
-
-  const loadMoreUsers = () => {
-    if(loadingMore) return 
-
-    const currentUsers = displayedUsers.length
-    const remainingUsers = allUsers.length - currentUsers
-
-    if(remainingUsers <= 0) return
-
-    setLoadingMore(true)
-
-    setTimeout(()=>{
-      const nextUsers = currentUsers + USERS_PER_BATCH
-      const newBatch = allUsers.slice(currentUsers,nextUsers)
-      if (newBatch.length > 0) {
-        setDisplayedUsers(pre => [...pre, ...newBatch])
-      }
-      setLoadingMore(false)
-    },1000)
+  const handleInputPress = () => {
+    setShowCursor(true)
   }
 
   const renderFooter = () => {
@@ -82,11 +50,16 @@ const MainScreen = () => {
   }
 
   return (
+    <SafeAreaView style={{flex:1}}>
+    <TouchableWithoutFeedback onPress={handleContainerPress}>
     <Container>
           <Input
+          ref={inputRef}
           placeholder='Search by name or email'
-          onChangeText={text => setNameEmail(text) }
-          value={nameEmail}/>
+          onChangeText={handleSetNameEmail }
+          value={nameEmail}
+          showCursor={showCursor}
+          onInputPress={handleInputPress}/>
 
         {loading ? (
           <EmptyContainer>
@@ -107,7 +80,7 @@ const MainScreen = () => {
               item={item}
               index={index}/>
             )}
-            keyExtractor={(_,index)=>index}
+            keyExtractor={(_,index)=>index.toString()}
             // maxToRenderPerBatch={10}
             // updateCellsBatchingPeriod={50}
             // windowSize={5}
@@ -116,6 +89,8 @@ const MainScreen = () => {
             onEndReached={loadMoreUsers}
             ListFooterComponent={renderFooter}
             removeClippedSubviews={false}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
             />
           </CardWrapper>
           ) 
@@ -129,11 +104,10 @@ const MainScreen = () => {
               <EmptyText>No user found</EmptyText>
               </Wrapper>
           </EmptyContainer>)
-          
-          
             }
-            
     </Container>
+    </TouchableWithoutFeedback>
+    </SafeAreaView>
   )
 }
 

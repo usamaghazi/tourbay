@@ -3,17 +3,17 @@ import styled from 'styled-components/native';
 import Colors from '../../../constants/Colors';
 export const Container = styled.View({
     flex:1,
-    paddingTop:40,
+    paddingTop:10,
     paddingLeft:15,
     paddingRight:15,
     backgroundColor:Colors.background,
-    paddingBottom:40
+    // paddingBottom:5
 })
 
 export const CardWrapper = styled.View({
     flex:1,
     alignItems:'center',
-    marginTop:10,
+    marginTop:5,
 })
 
 export const EmptyContainer = styled.View({
@@ -38,7 +38,7 @@ export const EmptyText = styled.Text({
 })
 
 export const Footer = styled.View({
-    padding: 20,
+    padding: 10,
     alignItems:'center',
     justifyContent:'center',
     
