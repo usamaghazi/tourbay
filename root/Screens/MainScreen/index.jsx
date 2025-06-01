@@ -1,4 +1,4 @@
-// import { useRef, useState } from 'react'
+
 import { ActivityIndicator, FlatList, TouchableWithoutFeedback } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -18,9 +18,6 @@ import {
 } from './Styles'
 const MainScreen = () => {
 
-  //  const [showCursor, setShowCursor] = useState(false)
-  // const inputRef = useRef(null)
-
   const { displayedUsers, 
           loading,
           loadingMore,
@@ -33,17 +30,6 @@ const MainScreen = () => {
           handleContainerPress,
           handleInputPress } = useInput()
 
-  // const handleContainerPress = () => {
-  //   if (inputRef.current) {
-  //     inputRef.current.blur()
-  //   }
-  //   Keyboard.dismiss()
-  //   setShowCursor(false)
-  // }
-
-  // const handleInputPress = () => {
-  //   setShowCursor(true)
-  // }
 
   const renderFooter = () => {
     if(!loadingMore) return null
