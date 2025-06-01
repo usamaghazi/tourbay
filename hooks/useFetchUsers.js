@@ -41,7 +41,7 @@ const useFetchUsers = () => {
     useEffect(()=>{
       if(nameEmail.trim()===''){
         setFilterUsers(allUsers)
-        setDisplayedUsers(filterUsers.slice(0,USERS_PER_BATCH))
+        setDisplayedUsers(allUsers.slice(0,USERS_PER_BATCH))
       }
       else {
         const searchLetters = nameEmail.toLocaleLowerCase().trim()
